@@ -78,7 +78,3 @@ production:
   database: back_to_school_drive_production
   username: back_to_school_drive
   password: <%= ENV['BACK_TO_SCHOOL_DRIVE_DATABASE_PASSWORD'] %>
-  # development:
-  # adapter: postgresql
-  # database: back-to-school-drive
-  # host: localhost
