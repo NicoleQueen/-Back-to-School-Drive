@@ -24,7 +24,7 @@ wv1 = Supply.create(supply: "Pencils", amount: 50, school_id: 3)
 wv2 = Supply.create(supply: "Notebooks", amount: 30, school_id: 3)
 wv3 = Supply.create(supply: "Binders", amount: 10, school_id: 3)
 wv4 = Supply.create(supply: "Markers", amount: 20, school_id: 3)
-wv5 = Supply.create(supply: "Hand Sanatizer Bottles", amount: 20, school_id: 3)
+wv5 = Supply.create(supply: "Hand Sanitizer Bottles", amount: 20, school_id: 3)
 
 tt1 = Supply.create(supply: "Pencils", amount: 50, school_id: 4)
 tt2 = Supply.create(supply: "Notebooks", amount: 30, school_id: 4)
