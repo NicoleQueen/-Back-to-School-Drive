@@ -1,5 +1,5 @@
 class SchoolSerializer < ActiveModel::Serializer
-  attributes :id, :name, :district, :description
+  attributes :id, :name, :district
 
   
 end
