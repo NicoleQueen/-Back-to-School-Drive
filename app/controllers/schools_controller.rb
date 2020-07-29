@@ -1,6 +1,5 @@
 class SchoolsController < ApplicationController
   def index
-    byebug
     @schools = School.all 
     render json: @schools
   end
