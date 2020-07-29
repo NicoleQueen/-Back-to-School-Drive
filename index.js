@@ -6,9 +6,11 @@ fetch('http://localhost:3000/donations')
 .then(res => res.json())
 .then(json => json.forEach(donations => {schoolDonations(donations)}))
 
+const fetchSupplies = () => {
 fetch('http://localhost:3000/supplies')
 .then(res => res.json())
 .then(json => json.forEach(supply => {schoolSupplies(supply)}))
+}
 
 const showSchools = (school) => {
     // console.log(school)
@@ -41,19 +43,20 @@ const schoolPage = (e, school) => {
         <input type="submit" value="Submit">
     </form>
     `  
-    schoolSupplies()
+    fetchSupplies()
 }
 
 const schoolSupplies = (supply) => {
-    // console.log(supply)
-    let ul = document.getElementById('supplies')
-    console.log(ul)
-    let li = document.createElement('li')
+    console.log(supply)
+    let supplyUL = document.getElementById('supplies')
+    console.log(supplyUL)
+     let li = document.createElement('li')
+     li.textContent = supply.supply
+     supplyUL.appendChild(li)
 }
 
 
-const schoolDonations = (donations) => {
+// const schoolDonations = (donations) => {
     // console.log(donations)
 
-}
 
