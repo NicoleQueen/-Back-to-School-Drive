@@ -2,9 +2,11 @@ fetch('http://localhost:3000/schools')
 .then(res => res.json())
 .then(json => json.forEach(school => {showSchools(school)}))
 
-fetch('http://localhost:3000/donations')
-.then(res => res.json())
-.then(json => json.forEach(donations => {schoolDonations(donations)}))
+const donationFetch = () => {
+    fetch('http://localhost:3000/donations')
+    .then(res => res.json())
+    .then(json => json.forEach(donation => {schoolDonations(donation)}))
+}
 
 fetch('http://localhost:3000/supplies')
 .then(res => res.json())
@@ -23,13 +25,13 @@ const showSchools = (school) => {
 
 const schoolPage = (e, school) => {
     let div = document.querySelector('.main-div')
+    div.id = school.id
     div.innerHTML = ''
     div.innerHTML = `
     <h2> ${school.name}</h2>
     <h3> ${school.district} </h3>
     <div>
         <ul id='supplies'>
-            <li> STuffed jk </li>
         </ul>
     </div>
     <form id='supplies-needed'>
@@ -40,8 +42,9 @@ const schoolPage = (e, school) => {
         <br>
         <input type="submit" value="Submit">
     </form>
+    <h3>Thank you to all that have donated! Your generosity has imh5roved the educational experience for our students.</h3>
     `  
-    schoolSupplies()
+    donationFetch()
 }
 
 const schoolSupplies = (supply) => {
@@ -52,8 +55,19 @@ const schoolSupplies = (supply) => {
 }
 
 
-const schoolDonations = (donations) => {
-    // console.log(donations)
 
+const schoolDonations = (donation) => {
+    // console.log(donations.amount)
+    let form = document.querySelector('form')
+    console.log(form)
+    let div = document.createElement('div')
+    div.id = 'donated'
+    div.innerHTML = `
+    ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
+    `
+    form.after(div)
+    let menu = document.querySelector('.main-div')
+    console.log(menu)
 }
+
 
