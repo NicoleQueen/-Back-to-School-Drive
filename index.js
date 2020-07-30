@@ -2,8 +2,10 @@ fetch('http://localhost:3000/schools')
 .then(res => res.json())
 .then(json => json.forEach(school => {showSchools(school)}))
 
+
 const donationFetch = () => {
-    fetch('http://localhost:3000/donations')
+    fetch('http://localhost:3000/donations?school_id=1')
+    // everything after the ? is included in the params (now have access to school_id)
     .then(res => res.json())
     .then(json => json.forEach(donation => {schoolDonations(donation)}))
 }
@@ -15,7 +17,6 @@ fetch('http://localhost:3000/supplies')
 }
 
 const showSchools = (school) => {
-    // console.log(school)
     let navBar = document.getElementById('School-Menu')
     let ul = navBar.querySelector('ul')
     let li = document.createElement('li')
@@ -54,19 +55,17 @@ const schoolPage = (e, school) => {
 const schoolSupplies = (supply) => {
     let supplyUL = document.getElementById('supplies')
     let li = document.createElement('li')
+    li.id = supply.school_name
     let div = document.querySelector('.main-div')
-
      if (div.id === supply.school_name){
         li.textContent = `${supply.amount} ${supply.supply}`
         supplyUL.appendChild(li)
      }
-
 }
 
 
 
 const schoolDonations = (donation) => {
-    // console.log(donation)
     let menu = document.querySelector('.main-div')
     let div = document.createElement('div')
     div.id = 'donated'
@@ -74,12 +73,5 @@ const schoolDonations = (donation) => {
     ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
     `
     menu.appendChild(div)
-
-    console.log(donation.supply_id)
-    console.log(menu.id)
 }
-//donation will be linked to school by supply
-//get donation.supply_id (donation.supply_id.school_name)
-//then compare school_name to div.id
-
-
+//added code to our fetch (look at it above^)
