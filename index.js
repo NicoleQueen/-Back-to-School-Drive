@@ -7,7 +7,7 @@ fetch("http://localhost:3000/schools")
   );
 
 const donationFetch = () => {
-  fetch("http://localhost:3000/donations")
+  fetch("http://localhost:3000/donations?")
     .then((res) => res.json())
     .then((json) =>
       json.forEach((donation) => {
@@ -37,6 +37,12 @@ const showSchools = (school) => {
 };
 
 const schoolPage = (e, school) => {
+  // let navBar = document.getElementById("School-Menu");
+  // let lis = navBar.querySelector("li");
+  // console.log(lis);
+  // lis.forEach((li) => {
+  //   li.className = 'list-group-item"';
+  // });
   e.target.className = "list-group-item active";
   let div = document.querySelector(".main-div");
   div.id = school.name;
@@ -69,11 +75,11 @@ const schoolPage = (e, school) => {
   fetchSupplies();
 };
 
-const schoolSupplies = (e, supply) => {
+const schoolSupplies = (supply) => {
   let supplyUL = document.getElementById("supplies");
   let li = document.createElement("li");
   let div = document.querySelector(".main-div");
-  console.log(supply);
+  li.id = supply.school_name;
   if (div.id === supply.school_name) {
     li.textContent = `${supply.amount} ${supply.supply}`;
     supplyUL.appendChild(li);
