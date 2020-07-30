@@ -1,12 +1,10 @@
 fetch("http://localhost:3000/schools")
   .then(res => res.json())
-  .then(json => json.forEach((school) => {showSchools(school);
-    })
+  .then(json => json.forEach(school => {showSchools(school)})
   );
 
-
-const donationFetch = () => {
-    fetch("http://localhost:3000/donations")
+const donationFetch = (school) => {
+ fetch(`http://localhost:3000/donations?school_id=${school.id}`)
     // everything after the ? is included in the params (now have access to school_id)
     .then(res => res.json())
     .then(json => json.forEach(donation => {schoolDonations(donation)}))
@@ -15,7 +13,7 @@ const donationFetch = () => {
 const fetchSupplies = () => {
   fetch("http://localhost:3000/supplies")
     .then(res => res.json())
-    .then(json => json.forEach((supply) => {schoolSupplies(supply)}));
+    .then(json => json.forEach(supply => {schoolSupplies(supply)}));
 };
 
 const showSchools = (school) => {
@@ -56,9 +54,9 @@ const schoolPage = (e, school) => {
     `;
 
     let form = document.querySelector("#supplies-needed");
-    form.addEventListener("submit", (e) => DonateSupplies(e, school));
+    form.addEventListener("submit", (e) => donateSupplies(e, school));
 
-    donationFetch()
+    donationFetch(school)
     fetchSupplies()
 }
 
@@ -84,23 +82,40 @@ const schoolDonations = (donation) => {
     menu.appendChild(div)
 
 }
+    
 //added code to our fetch (look at it above^)
 
-const DonateSupplies = (e, school) => {
+const donateSupplies = (e, school) => {
     e.preventDefault()
-    console.log(e.target)
-    // let ulDonate = document.querySelector('#donated')
-    // let li = document.createElement('li')
+    // console.log(e.target)
+    let ulDonate = document.querySelector('#donated')
+    let li = document.createElement('li')
     // ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
-    // li.innerText = `${e.target.name.value} ${e.target.supply.value} ${e.target.amount.value}`
-    // ulDonate.appendChild(li)
-    // console.log(ulDonate)
-   
-
-};
+    li.innerHTML = `${e.target.name.value} donated ${e.target.amount.value} ${e.target.supply.value}`
+    ulDonate.appendChild(li)
+   let data = { supply: e.target.supply.value, amount: e.target.amount.value, school_id: school.id}
+     // console.log(ulDonate)
+     fetch('http://localhost:3000/supplies', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(json => console.log(json))
+}
 
 let headerFirst = document.querySelector("header");
 let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
 home.addEventListener("click", (e) => showHomePage());
 
+const DeletedonateSupplies = () => {
+    fetch('http://localhost:3000/supplies'),
+    let currentDonatedSupplies = document.querySelector('li')
+    currentDonatedSupplies.innerHTML = ''
+
+    const 
+}
