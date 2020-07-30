@@ -90,14 +90,10 @@ const schoolSupplies = (supply) => {
 
 const schoolDonations = (donation) => {
 
-    let menu = document.querySelector('.main-div')
-    let div = document.createElement('div')
-    div.id = 'donated'
-    div.innerHTML = `
-    ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
-    `
-    menu.appendChild(div)
-
+    let ul = document.querySelector('#donated')
+    let li = document.createElement('li')
+    li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`
+    ul.appendChild(li)
 }
     
 //added code to our fetch (look at it above^)
