@@ -42,13 +42,17 @@ const schoolPage = (e, school) => {
   div.id = school.name;
   div.innerHTML = "";
   div.innerHTML = `
+
     <h2> ${school.name}</h2>
     <h3> ${school.district} </h3>
+    <p> Supplies needed for upcoming school year </p>
     <div>
         <ul id='supplies'>
         </ul>
     </div>
     <form id='supplies-needed'>
+        <label>Name</label>
+        <input type='text' name='name'>
         <label>Supply</label>
         <input type='text' name='supply'>
         <label>Amount</label>
@@ -58,19 +62,25 @@ const schoolPage = (e, school) => {
     </form>
     <h3 id = "thanks">Thank you to all that have donated! Your generosity has imh5roved the educational experience for our students.</h3>
     `;
+  let form = document.querySelector("#supplies-needed");
+  form.addEventListener("submit", (e) => DonateSupplies(e, school));
+
   donationFetch();
   fetchSupplies();
 };
 
-const schoolSupplies = (supply) => {
+const schoolSupplies = (e, supply) => {
   let supplyUL = document.getElementById("supplies");
   let li = document.createElement("li");
   let div = document.querySelector(".main-div");
-
+  console.log(supply);
   if (div.id === supply.school_name) {
     li.textContent = `${supply.amount} ${supply.supply}`;
     supplyUL.appendChild(li);
   }
+  //  let form = document.querySelector('supplies-needed')
+  //  form.addEventListener('submit', (e) => schoolSupplies(e))
+  //  console.log(e.target)
 };
 
 const schoolDonations = (donations) => {
@@ -111,4 +121,11 @@ const showHomePage = () => {
       currently in need.
     </p>
     `;
+};
+
+const DonateSupplies = (e) => {
+  e.preventDefault();
+  console.log(e.target.name.value);
+  console.log(e.target.supply.value);
+  console.log(e.target.amount.value);
 };
