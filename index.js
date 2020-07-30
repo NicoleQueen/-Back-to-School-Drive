@@ -1,12 +1,10 @@
 fetch("http://localhost:3000/schools")
   .then(res => res.json())
-  .then(json => json.forEach((school) => {showSchools(school);
-    })
+  .then(json => json.forEach(school => {showSchools(school)})
   );
 
-
-const donationFetch = () => {
- fetch("http://localhost:3000/donations")
+const donationFetch = (school) => {
+ fetch(`http://localhost:3000/donations?school_id=${school.id}`)
     // everything after the ? is included in the params (now have access to school_id)
     .then(res => res.json())
     .then(json => json.forEach(donation => {schoolDonations(donation)}))
@@ -15,7 +13,7 @@ const donationFetch = () => {
 const fetchSupplies = () => {
   fetch("http://localhost:3000/supplies")
     .then(res => res.json())
-    .then(json => json.forEach((supply) => {schoolSupplies(supply)}));
+    .then(json => json.forEach(supply => {schoolSupplies(supply)}));
 };
 
 const showSchools = (school) => {
@@ -58,13 +56,12 @@ const schoolPage = (e, school) => {
     let form = document.querySelector("#supplies-needed");
     form.addEventListener("submit", (e) => DonateSupplies(e, school));
 
-    donationFetch()
+    donationFetch(school)
     fetchSupplies()
 }
 
 
 const schoolSupplies = (supply) => {
-    console.log(supply)
     let supplyUL = document.getElementById("supplies");
     let li = document.createElement("li");
     li.id = supply.school_name
@@ -84,8 +81,9 @@ const schoolDonations = (donation) => {
     `
     menu.appendChild(div)
 
-    let ulDonate = document.createElement('donation')
+    let donate = document.createElement('li')
     let ul = document.querySelector('#supplies')
+    console.log(ul)
     donate.innerText = e.target.name.value
     donate.innerText = e.target.supply.value
     donate.innerText = e.target.amount.value
