@@ -6,15 +6,13 @@ fetch("http://localhost:3000/schools")
     })
   );
 
+
 const donationFetch = () => {
-  fetch("http://localhost:3000/donations")
-    .then((res) => res.json())
-    .then((json) =>
-      json.forEach((donation) => {
-        schoolDonations(donation);
-      })
-    );
-};
+    fetch('http://localhost:3000/donations?school_id=1')
+    // everything after the ? is included in the params (now have access to school_id)
+    .then(res => res.json())
+    .then(json => json.forEach(donation => {schoolDonations(donation)}))
+}
 
 const fetchSupplies = () => {
   fetch("http://localhost:3000/supplies")
@@ -62,45 +60,40 @@ const schoolPage = (e, school) => {
     </form>
     <h3 id = "thanks">Thank you to all that have donated! Your generosity has imh5roved the educational experience for our students.</h3>
     `;
-  let form = document.querySelector("#supplies-needed");
-  form.addEventListener("submit", (e) => DonateSupplies(e, school));
 
-  donationFetch();
-  fetchSupplies();
-};
+    let form = document.querySelector("#supplies-needed");
+    form.addEventListener("submit", (e) => DonateSupplies(e, school));
+
+    donationFetch()
+    fetchSupplies()
+}
 
 const schoolSupplies = (e, supply) => {
-  let supplyUL = document.getElementById("supplies");
-  let li = document.createElement("li");
-  let div = document.querySelector(".main-div");
-  console.log(supply);
-  if (div.id === supply.school_name) {
-    li.textContent = `${supply.amount} ${supply.supply}`;
-    supplyUL.appendChild(li);
-  }
-  //  let form = document.querySelector('supplies-needed')
-  //  form.addEventListener('submit', (e) => schoolSupplies(e))
-  //  console.log(e.target)
+    let supplyUL = document.getElementById("supplies");
+    let li = document.createElement("li");
+    li.id = supply.school_name
+    let div = document.querySelector(".main-div");
+    if (div.id === supply.school_name) {
+        li.textContent = `${supply.amount} ${supply.supply}`;
+        supplyUL.appendChild(li);
+    }
 };
 
-const schoolDonations = (donations) => {
-  // console.log(donations.amount)
-  let form = document.querySelector("form");
-  // console.log(form)
-  let div = document.createElement("div");
-  div.id = "donated";
-  div.innerHTML = `
-  ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
-  `;
-  form.after(div);
-  let menu = document.querySelector(".main-div");
-  // console.log(menu)
+const schoolDonations = (donation) => {
+    let menu = document.querySelector('.main-div')
+    let div = document.createElement('div')
+    div.id = 'donated'
+    div.innerHTML = `
+    ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
+    `
+    menu.appendChild(div)
 };
+//added code to our fetch (look at it above^)
 
 let headerFirst = document.querySelector("header");
-let hOne = headerFirst.querySelector("h1");
+let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
-hOne.addEventListener("click", (e) => showHomePage());
+home.addEventListener("click", (e) => showHomePage());
 
 const showHomePage = () => {
   let aside = document.querySelector("aside");
