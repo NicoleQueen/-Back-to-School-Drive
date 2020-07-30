@@ -94,4 +94,11 @@ console.log(e.target.name.value)
 console.log(e.target.supply.value)
 console.log(e.target.amount.value)
 
+let ulDonate = document.createElement('donation')
+let ul = document.querySelector('#supplies')
+donate.innerText = e.target.name.value
+donate.innerText = e.target.supply.value
+donate.innerText = e.target.amount.value
+ul.appendChild(donate)
+console.log(donate)
 }
