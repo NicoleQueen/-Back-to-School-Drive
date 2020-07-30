@@ -4,8 +4,9 @@ fetch("http://localhost:3000/schools")
     })
   );
 
+
 const donationFetch = () => {
-    fetch("http://localhost:3000/donations")
+ fetch("http://localhost:3000/donations")
     // everything after the ? is included in the params (now have access to school_id)
     .then(res => res.json())
     .then(json => json.forEach(donation => {schoolDonations(donation)}))
@@ -51,7 +52,7 @@ const schoolPage = (e, school) => {
         <br>
         <input type="submit" value="Submit">
     </form>
-    <h3 id = "thanks">Thank you to all that have donated! Your generosity has imh5roved the educational experience for our students.</h3>
+    <h3 id = "thanks">Thank you to all that have donated! Your generosity has improved the educational experience for our students.</h3>
     `;
 
     let form = document.querySelector("#supplies-needed");
@@ -60,6 +61,7 @@ const schoolPage = (e, school) => {
     donationFetch()
     fetchSupplies()
 }
+
 
 const schoolSupplies = (supply) => {
     console.log(supply)
@@ -81,6 +83,15 @@ const schoolDonations = (donation) => {
     ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
     `
     menu.appendChild(div)
+
+    let ulDonate = document.createElement('donation')
+    let ul = document.querySelector('#supplies')
+    donate.innerText = e.target.name.value
+    donate.innerText = e.target.supply.value
+    donate.innerText = e.target.amount.value
+    ul.appendChild(donate)
+    console.log(donate)
+
 };
 //added code to our fetch (look at it above^)
 
@@ -89,39 +100,3 @@ let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
 home.addEventListener("click", (e) => showHomePage());
 
-
-let ulDonate = document.createElement('donation')
-let ul = document.querySelector('#supplies')
-donate.innerText = e.target.name.value
-donate.innerText = e.target.supply.value
-donate.innerText = e.target.amount.value
-ul.appendChild(donate)
-console.log(donate)
-}
-const showHomePage = () => {
-  let aside = document.querySelector("aside");
-  aside.innerHTML = ``;
-  aside.innerHTML = `
-    <h2>GREETING PLACEHOLDER</h2>
-    <div id="greeting">
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTi1ldbOOBs4jgq4OkQpog6aqKX_FR0UrwWGg&usqp=CAU"
-      />
-    </div>
-    <p>
-      Thank you for joining us for our 2020 back to school drive! To
-      ensure our students have the necessary tools needed to succeed this
-      school year, we are asking for your help. Each school has put
-      togeather a list of items needed for this upcoming school year.
-      Please navigate to your childs to take a look at supplies that are
-      currently in need.
-    </p>
-    `;
-};
-
-const DonateSupplies = (e) => {
-  e.preventDefault();
-  console.log(e.target.name.value);
-  console.log(e.target.supply.value);
-  console.log(e.target.amount.value);
-};
