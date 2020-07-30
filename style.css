@@ -12,13 +12,16 @@ body {
 header {
   float: left;
   width: 310px;
-  height: auto;
+  height: 100%; /*how do I make this take up the 
+  height of the page, so that to the right of it
+  is centered*/
   border-right: solid #404040 1px;
   border-bottom: solid #404040 1px;
   border-radius: 0 0 6px 0;
   padding: 10px;
   margin-right: 10px;
 }
+/*nav bar*/
 
 h1 {
   font-family: "Great Vibes", cursive;
@@ -26,27 +29,35 @@ h1 {
   color: #0763a5;
   margin: 30px 0;
 }
+/* this is the nav bar heading*/
 
 h2 {
   font-family: "Great Vibes", cursive;
-  font-size: 27px;
+  font-size: 60px;
   color: #0763a5;
   margin: 10px 0;
   padding-top: 50px;
 }
+/*heading @ top of page */
 
 h3 {
   font-family: "Great Vibes", cursive;
-  font-size: 18px;
+  font-size: 25px;
   color: #3493d5;
   margin: 10px 0;
 }
+/*city and thank you heading*/
 
 p {
   font-family: Georgia, serif;
-  font-size: 18px;
+  font-size: 23px;
   color: grey;
-  margin: 120px 0;
+  margin: 80px 0;
+}
+/* home/school page description*/
+
+ul {
+  list-style-type: none;
 }
 
 li {
@@ -55,6 +66,7 @@ li {
   font-family: Georgia, serif;
   font-size: 18px;
   margin: 8px 0;
+
 }
 
 #logo img {
@@ -67,6 +79,7 @@ li {
 .main-div {
   text-align: center;
 }
+
 #greeting img {
   border: solid 1px #3493d5;
   width: 570px;
