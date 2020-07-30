@@ -28,6 +28,7 @@ const showSchools = (school) => {
 
 const schoolPage = (e, school) => {
   e.target.className = "list-group-item active";
+  console.log(e.target.className)
   let div = document.querySelector(".main-div");
   div.id = school.name;
   div.innerHTML = "";
@@ -50,11 +51,26 @@ const schoolPage = (e, school) => {
         <br>
         <input type="submit" value="Submit">
     </form>
+    <form id='monetary-donations'>
+        <label>Name</label>
+        <input type='text' name='name'>
+        <label>Dollar Amount</label>
+        <input type='number' name='amount'>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
     <h3 id = "thanks">Thank you to all that have donated! Your generosity has improved the educational experience for our students.</h3>
+    <div>
+        <ul id='donated'>
+        </ul>
+    </div>
     `;
 
     let form = document.querySelector("#supplies-needed");
     form.addEventListener("submit", (e) => DonateSupplies(e, school));
+
+    let monetary = document.querySelector('#monetary-donations')
+    monetary.addEventListener('submit', (e) => financialDonation(e, school))
 
     donationFetch(school)
     fetchSupplies()
@@ -73,25 +89,24 @@ const schoolSupplies = (supply) => {
 };
 
 const schoolDonations = (donation) => {
-    let menu = document.querySelector('.main-div')
-    let div = document.createElement('div')
-    div.id = 'donated'
-    div.innerHTML = `
-    ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
-    `
-    menu.appendChild(div)
+    let ul = document.querySelector('#donated')
+    let li = document.createElement('li')
+    li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`
+    ul.appendChild(li)
 
-    let donate = document.createElement('li')
-    let ul = document.querySelector('#supplies')
-    console.log(ul)
-    donate.innerText = e.target.name.value
-    donate.innerText = e.target.supply.value
-    donate.innerText = e.target.amount.value
-    ul.appendChild(donate)
-    console.log(donate)
+    // let donate = document.createElement('li')
+    // let ul = document.querySelector('#supplies')
 
+    // donate.innerText = e.target.name.value
+    // donate.innerText = e.target.supply.value
+    // donate.innerText = e.target.amount.value
+    // ul.appendChild(donate)
 };
 //added code to our fetch (look at it above^)
+
+const financialDonation = (e, school) => {
+    e.preventDefault 
+}
 
 let headerFirst = document.querySelector("header");
 let home = headerFirst.querySelector("h1");
