@@ -1,14 +1,12 @@
 fetch("http://localhost:3000/schools")
-  .then((res) => res.json())
-  .then((json) =>
-    json.forEach((school) => {
-      showSchools(school);
+  .then(res => res.json())
+  .then(json => json.forEach((school) => {showSchools(school);
     })
   );
 
 
 const donationFetch = () => {
-    fetch('http://localhost:3000/donations?school_id=1')
+    fetch("http://localhost:3000/donations")
     // everything after the ? is included in the params (now have access to school_id)
     .then(res => res.json())
     .then(json => json.forEach(donation => {schoolDonations(donation)}))
@@ -16,12 +14,8 @@ const donationFetch = () => {
 
 const fetchSupplies = () => {
   fetch("http://localhost:3000/supplies")
-    .then((res) => res.json())
-    .then((json) =>
-      json.forEach((supply) => {
-        schoolSupplies(supply);
-      })
-    );
+    .then(res => res.json())
+    .then(json => json.forEach((supply) => {schoolSupplies(supply)}));
 };
 
 const showSchools = (school) => {
@@ -68,7 +62,8 @@ const schoolPage = (e, school) => {
     fetchSupplies()
 }
 
-const schoolSupplies = (e, supply) => {
+const schoolSupplies = (supply) => {
+    console.log(supply)
     let supplyUL = document.getElementById("supplies");
     let li = document.createElement("li");
     li.id = supply.school_name
@@ -88,16 +83,21 @@ const schoolDonations = (donation) => {
     `
     menu.appendChild(div)
 
-    let ulDonate = document.createElement('donation')
-    let ul = document.querySelector('#supplies')
-    donate.innerText = e.target.name.value
-    donate.innerText = e.target.supply.value
-    donate.innerText = e.target.amount.value
-    ul.appendChild(donate)
-    console.log(donate)
+}
+//added code to our fetch (look at it above^)
+
+const DonateSupplies = (e, school) => {
+    e.preventDefault()
+    console.log(e.target)
+    // let ulDonate = document.querySelector('#donated')
+    // let li = document.createElement('li')
+    // ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
+    // li.innerText = `${e.target.name.value} ${e.target.supply.value} ${e.target.amount.value}`
+    // ulDonate.appendChild(li)
+    // console.log(ulDonate)
+   
 
 };
-//added code to our fetch (look at it above^)
 
 let headerFirst = document.querySelector("header");
 let home = headerFirst.querySelector("h1");
