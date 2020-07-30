@@ -95,6 +95,15 @@ let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
 home.addEventListener("click", (e) => showHomePage());
 
+
+let ulDonate = document.createElement('donation')
+let ul = document.querySelector('#supplies')
+donate.innerText = e.target.name.value
+donate.innerText = e.target.supply.value
+donate.innerText = e.target.amount.value
+ul.appendChild(donate)
+console.log(donate)
+}
 const showHomePage = () => {
   let aside = document.querySelector("aside");
   aside.innerHTML = ``;
