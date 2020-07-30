@@ -3,4 +3,7 @@ class SuppliesController < ApplicationController
     @supplies = Supply.all 
     render json: @supplies
   end
+
+  def create
+  end
 end
