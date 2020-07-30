@@ -3,9 +3,7 @@ class CreateSupplies < ActiveRecord::Migration[6.0]
     create_table :supplies do |t|
       t.string :supply
       t.integer :amount
-      t.belongs_to :school, null: false, foreign_key: true
-
-      t.timestamps
+      t.integer :school_id
     end
   end
 end

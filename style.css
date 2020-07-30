@@ -11,7 +11,7 @@ body {
 
 header {
   float: left;
-  width: 225px;
+  width: 310px;
   height: auto;
   border-right: solid #404040 1px;
   border-bottom: solid #404040 1px;
@@ -22,13 +22,55 @@ header {
 
 h1 {
   font-family: "Great Vibes", cursive;
-  font-size: 52px;
+  font-size: 33px;
   color: #3493d5;
+  margin: 30px 0;
+}
+
+h2 {
+  font-family: "Great Vibes", cursive;
+  font-size: 27px;
+  color: #3493d5;
+  margin: 10px 0;
+  padding-top: 50px;
+}
+
+h3 {
+  font-family: "Great Vibes", cursive;
+  font-size: 18px;
+  color: grey;
   margin: 10px 0;
 }
 
+p {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  color: grey;
+  margin: 120px 0;
+}
+
+li {
+  text-align: -webkit-match-parent;
+  display: list-item;
+  font-family: Georgia, serif;
+  font-size: 18px;
+  margin: 8px 0;
+}
+
 #logo img {
-  border: solid 1px green;
-  width: 8px;
-  height: 5px;
+  border: solid 1px #3493d5;
+  width: 270px;
+  height: 90px;
+  border-radius: 8px;
+  text-align: center;
+}
+.main-div {
+  text-align: center;
+}
+#greeting img {
+  border: solid 1px #3493d5;
+  width: 570px;
+  height: 260px;
+  border-radius: 8px;
+  margin: 80px 0;
 }

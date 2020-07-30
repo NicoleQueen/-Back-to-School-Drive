@@ -10,45 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_28_152825) do
+ActiveRecord::Schema.define(version: 2020_07_29_182400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "donations", force: :cascade do |t|
     t.integer "amount"
-    t.bigint "user_id", null: false
-    t.bigint "supply_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["supply_id"], name: "index_donations_on_supply_id"
-    t.index ["user_id"], name: "index_donations_on_user_id"
+    t.integer "user_id"
+    t.integer "supply_id"
   end
 
   create_table "schools", force: :cascade do |t|
     t.string "name"
     t.string "district"
-    t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "supplies", force: :cascade do |t|
     t.string "supply"
     t.integer "amount"
-    t.bigint "school_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["school_id"], name: "index_supplies_on_school_id"
+    t.integer "school_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "donations", "supplies"
-  add_foreign_key "donations", "users"
-  add_foreign_key "supplies", "schools"
 end
