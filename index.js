@@ -7,17 +7,24 @@ fetch("http://localhost:3000/schools")
   );
 
 const donationFetch = () => {
-    fetch('http://localhost:3000/donations')
-    .then(res => res.json())
-    .then(json => json.forEach(donation => {schoolDonations(donation)}))
-}
+  fetch("http://localhost:3000/donations")
+    .then((res) => res.json())
+    .then((json) =>
+      json.forEach((donation) => {
+        schoolDonations(donation);
+      })
+    );
+};
 
 const fetchSupplies = () => {
-fetch('http://localhost:3000/supplies')
-.then(res => res.json())
-.then(json => json.forEach(supply => {schoolSupplies(supply)}))
-}
-
+  fetch("http://localhost:3000/supplies")
+    .then((res) => res.json())
+    .then((json) =>
+      json.forEach((supply) => {
+        schoolSupplies(supply);
+      })
+    );
+};
 
 const showSchools = (school) => {
   let navBar = document.getElementById("School-Menu");
@@ -30,11 +37,11 @@ const showSchools = (school) => {
 };
 
 const schoolPage = (e, school) => {
-    e.target.className = "list-group-item active";
-    let div = document.querySelector('.main-div')
-    div.id = school.name
-    div.innerHTML = ''
-    div.innerHTML = `
+  e.target.className = "list-group-item active";
+  let div = document.querySelector(".main-div");
+  div.id = school.name;
+  div.innerHTML = "";
+  div.innerHTML = `
 
     <h2> ${school.name}</h2>
     <h3> ${school.district} </h3>
@@ -53,40 +60,28 @@ const schoolPage = (e, school) => {
         <br>
         <input type="submit" value="Submit">
     </form>
-    <h3>Thank you to all that have donated! Your generosity has imh5roved the educational experience for our students.</h3>
-    ` 
-    
-    let form = document.querySelector('#supplies-needed')
-    form.addEventListener('submit', (e) => DonateSupplies(e, school))
-   
+    <h3 id = "thanks">Thank you to all that have donated! Your generosity has imh5roved the educational experience for our students.</h3>
+    `;
+  let form = document.querySelector("#supplies-needed");
+  form.addEventListener("submit", (e) => DonateSupplies(e, school));
 
-    donationFetch()
-    fetchSupplies()
-}
+  donationFetch();
+  fetchSupplies();
+};
 
 const schoolSupplies = (e, supply) => {
-    let supplyUL = document.getElementById('supplies')
-    let li = document.createElement('li')
-    let div = document.querySelector('.main-div')
-    console.log(supply)
-     if (div.id === supply.school_name){
-        li.textContent = `${supply.amount} ${supply.supply}`
-        supplyUL.appendChild(li)
-   
-     }
-    //  let form = document.querySelector('supplies-needed')
-    //  form.addEventListener('submit', (e) => schoolSupplies(e))
-    //  console.log(e.target)
-
-}
-
-
+  let supplyUL = document.getElementById("supplies");
+  let li = document.createElement("li");
+  let div = document.querySelector(".main-div");
+  console.log(supply);
   if (div.id === supply.school_name) {
     li.textContent = `${supply.amount} ${supply.supply}`;
     supplyUL.appendChild(li);
   }
+  //  let form = document.querySelector('supplies-needed')
+  //  form.addEventListener('submit', (e) => schoolSupplies(e))
+  //  console.log(e.target)
 };
-
 
 const schoolDonations = (donations) => {
   // console.log(donations.amount)
@@ -128,12 +123,9 @@ const showHomePage = () => {
     `;
 };
 
-
 const DonateSupplies = (e) => {
-    e.preventDefault()
-console.log(e.target.name.value)
-console.log(e.target.supply.value)
-console.log(e.target.amount.value)
-
-
-}
+  e.preventDefault();
+  console.log(e.target.name.value);
+  console.log(e.target.supply.value);
+  console.log(e.target.amount.value);
+};
