@@ -27,11 +27,12 @@ const showSchools = (school) => {
 
 const schoolPage = (e, school) => {
     let div = document.querySelector('.main-div')
-    div.id = school.id
+    div.id = school.name
     div.innerHTML = ''
     div.innerHTML = `
     <h2> ${school.name}</h2>
     <h3> ${school.district} </h3>
+    <p> Supplies needed for upcoming school year </p>
     <div>
         <ul id='supplies'>
         </ul>
@@ -51,12 +52,15 @@ const schoolPage = (e, school) => {
 }
 
 const schoolSupplies = (supply) => {
-    console.log(supply)
     let supplyUL = document.getElementById('supplies')
-    console.log(supplyUL)
-     let li = document.createElement('li')
-     li.textContent = supply.supply
-     supplyUL.appendChild(li)
+    let li = document.createElement('li')
+    let div = document.querySelector('.main-div')
+
+     if (div.id === supply.school_name){
+        li.textContent = `${supply.amount} ${supply.supply}`
+        supplyUL.appendChild(li)
+     }
+
 }
 
 
@@ -64,7 +68,7 @@ const schoolSupplies = (supply) => {
 const schoolDonations = (donation) => {
     // console.log(donations.amount)
     let form = document.querySelector('form')
-    console.log(form)
+    // console.log(form)
     let div = document.createElement('div')
     div.id = 'donated'
     div.innerHTML = `
@@ -72,7 +76,7 @@ const schoolDonations = (donation) => {
     `
     form.after(div)
     let menu = document.querySelector('.main-div')
-    console.log(menu)
+    // console.log(menu)
 }
 
 
