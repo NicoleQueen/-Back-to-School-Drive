@@ -27,7 +27,7 @@ const showSchools = (school) => {
 
 const schoolPage = (e, school) => {
     let div = document.querySelector('.main-div')
-    div.id = school.id
+    div.id = school.name
     div.innerHTML = ''
     div.innerHTML = `
     <h2> ${school.name}</h2>
@@ -44,7 +44,7 @@ const schoolPage = (e, school) => {
         <br>
         <input type="submit" value="Submit">
     </form>
-    <h3>Thank you to all that have donated! Your generosity has imh5roved the educational experience for our students.</h3>
+    <h3>Thank you to all that have donated! Your generosity has improved the educational experience for our students.</h3>
     `  
     donationFetch()
     fetchSupplies()
@@ -53,7 +53,6 @@ const schoolPage = (e, school) => {
 const schoolSupplies = (supply) => {
     console.log(supply)
     let supplyUL = document.getElementById('supplies')
-    console.log(supplyUL)
      let li = document.createElement('li')
      li.textContent = supply.supply
      supplyUL.appendChild(li)
@@ -62,17 +61,20 @@ const schoolSupplies = (supply) => {
 
 
 const schoolDonations = (donation) => {
-    // console.log(donations.amount)
-    let form = document.querySelector('form')
-    console.log(form)
+    // console.log(donation)
+    let menu = document.querySelector('.main-div')
     let div = document.createElement('div')
     div.id = 'donated'
     div.innerHTML = `
     ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
     `
-    form.after(div)
-    let menu = document.querySelector('.main-div')
-    console.log(menu)
+    menu.appendChild(div)
+
+    console.log(donation.supply_id)
+    console.log(menu.id)
 }
+//donation will be linked to school by supply
+//get donation.supply_id (donation.supply_id.school_name)
+//then compare school_name to div.id
 
 
