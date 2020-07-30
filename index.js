@@ -56,7 +56,7 @@ const schoolPage = (e, school) => {
         <br>
         <input type="submit" value="Submit">
     </form>
-    <h3>Thank you to all that have donated! Your generosity has imh5roved the educational experience for our students.</h3>
+    <h3 id = "thanks">Thank you to all that have donated! Your generosity has imh5roved the educational experience for our students.</h3>
     `;
   donationFetch();
   fetchSupplies();
