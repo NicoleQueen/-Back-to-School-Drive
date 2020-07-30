@@ -1,14 +1,11 @@
 fetch("http://localhost:3000/schools")
   .then((res) => res.json())
-  .then((json) =>
-    json.forEach((school) => {
-      showSchools(school);
+  .then((json) => json.forEach((school) => {showSchools(school);
     })
   );
 
-
 const donationFetch = () => {
-    fetch('http://localhost:3000/donations?school_id=1')
+    fetch('http://localhost:3000/donations?')
     // everything after the ? is included in the params (now have access to school_id)
     .then(res => res.json())
     .then(json => json.forEach(donation => {schoolDonations(donation)}))
@@ -17,9 +14,7 @@ const donationFetch = () => {
 const fetchSupplies = () => {
   fetch("http://localhost:3000/supplies")
     .then((res) => res.json())
-    .then((json) =>
-      json.forEach((supply) => {
-        schoolSupplies(supply);
+    .then((json) => json.forEach((supply) => {schoolSupplies(supply);
       })
     );
 };
@@ -69,6 +64,7 @@ const schoolPage = (e, school) => {
 }
 
 const schoolSupplies = (e, supply) => {
+    console.log(supply)
     let supplyUL = document.getElementById("supplies");
     let li = document.createElement("li");
     li.id = supply.school_name
