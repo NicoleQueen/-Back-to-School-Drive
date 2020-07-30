@@ -1,14 +1,11 @@
 fetch("http://localhost:3000/schools")
   .then((res) => res.json())
-  .then((json) =>
-    json.forEach((school) => {
-      showSchools(school);
+  .then((json) => json.forEach((school) => {showSchools(school);
     })
   );
 
-
 const donationFetch = () => {
-    fetch('http://localhost:3000/donations?school_id=1')
+    fetch('http://localhost:3000/donations?')
     // everything after the ? is included in the params (now have access to school_id)
     .then(res => res.json())
     .then(json => json.forEach(donation => {schoolDonations(donation)}))
@@ -17,9 +14,7 @@ const donationFetch = () => {
 const fetchSupplies = () => {
   fetch("http://localhost:3000/supplies")
     .then((res) => res.json())
-    .then((json) =>
-      json.forEach((supply) => {
-        schoolSupplies(supply);
+    .then((json) => json.forEach((supply) => {schoolSupplies(supply);
       })
     );
 };
@@ -69,6 +64,7 @@ const schoolPage = (e, school) => {
 }
 
 const schoolSupplies = (e, supply) => {
+    console.log(supply)
     let supplyUL = document.getElementById("supplies");
     let li = document.createElement("li");
     li.id = supply.school_name
@@ -96,6 +92,10 @@ let home = headerFirst.querySelector("h1");
 home.addEventListener("click", (e) => showHomePage());
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 021829d4e3f34bebc739ae19f9e2f0f50b24870c
 let ulDonate = document.createElement('donation')
 let ul = document.querySelector('#supplies')
 donate.innerText = e.target.name.value
@@ -104,7 +104,10 @@ donate.innerText = e.target.amount.value
 ul.appendChild(donate)
 console.log(donate)
 }
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 021829d4e3f34bebc739ae19f9e2f0f50b24870c
 const showHomePage = () => {
   let aside = document.querySelector("aside");
   aside.innerHTML = ``;
@@ -132,4 +135,7 @@ const DonateSupplies = (e) => {
   console.log(e.target.supply.value);
   console.log(e.target.amount.value);
 };
+<<<<<<< HEAD
 >>>>>>> c82560330628a2ca8388bd538efb9518495f73ba
+=======
+>>>>>>> 021829d4e3f34bebc739ae19f9e2f0f50b24870c
