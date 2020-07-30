@@ -7,24 +7,17 @@ fetch("http://localhost:3000/schools")
   );
 
 const donationFetch = () => {
-  fetch("http://localhost:3000/donations")
-    .then((res) => res.json())
-    .then((json) =>
-      json.forEach((donation) => {
-        schoolDonations(donation);
-      })
-    );
-};
+    fetch('http://localhost:3000/donations')
+    .then(res => res.json())
+    .then(json => json.forEach(donation => {schoolDonations(donation)}))
+}
 
 const fetchSupplies = () => {
-  fetch("http://localhost:3000/supplies")
-    .then((res) => res.json())
-    .then((json) =>
-      json.forEach((supply) => {
-        schoolSupplies(supply);
-      })
-    );
-};
+fetch('http://localhost:3000/supplies')
+.then(res => res.json())
+.then(json => json.forEach(supply => {schoolSupplies(supply)}))
+}
+
 
 const showSchools = (school) => {
   let navBar = document.getElementById("School-Menu");
@@ -37,13 +30,15 @@ const showSchools = (school) => {
 };
 
 const schoolPage = (e, school) => {
-  e.target.className = "list-group-item active";
-  let div = document.querySelector(".main-div");
-  div.id = school.name;
-  div.innerHTML = "";
-  div.innerHTML = `
+    e.target.className = "list-group-item active";
+    let div = document.querySelector('.main-div')
+    div.id = school.name
+    div.innerHTML = ''
+    div.innerHTML = `
+
     <h2> ${school.name}</h2>
     <h3> ${school.district} </h3>
+    <p> Supplies needed for upcoming school year </p>
     <div>
         <ul id='supplies'>
         </ul>
@@ -57,21 +52,30 @@ const schoolPage = (e, school) => {
         <input type="submit" value="Submit">
     </form>
     <h3>Thank you to all that have donated! Your generosity has imh5roved the educational experience for our students.</h3>
-    `;
-  donationFetch();
-  fetchSupplies();
-};
+    `  
+    donationFetch()
+    fetchSupplies()
+}
 
 const schoolSupplies = (supply) => {
-  let supplyUL = document.getElementById("supplies");
-  let li = document.createElement("li");
-  let div = document.querySelector(".main-div");
+    let supplyUL = document.getElementById('supplies')
+    let li = document.createElement('li')
+    let div = document.querySelector('.main-div')
+
+     if (div.id === supply.school_name){
+        li.textContent = `${supply.amount} ${supply.supply}`
+        supplyUL.appendChild(li)
+     }
+
+}
+
 
   if (div.id === supply.school_name) {
     li.textContent = `${supply.amount} ${supply.supply}`;
     supplyUL.appendChild(li);
   }
 };
+
 
 const schoolDonations = (donations) => {
   // console.log(donations.amount)
@@ -112,3 +116,4 @@ const showHomePage = () => {
     </p>
     `;
 };
+
