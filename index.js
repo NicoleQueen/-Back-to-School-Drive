@@ -32,6 +32,7 @@ const schoolPage = (e, school) => {
     div.innerHTML = `
     <h2> ${school.name}</h2>
     <h3> ${school.district} </h3>
+    <p> Supplies needed for upcoming school year </p>
     <div>
         <ul id='supplies'>
         </ul>
@@ -51,11 +52,15 @@ const schoolPage = (e, school) => {
 }
 
 const schoolSupplies = (supply) => {
-    console.log(supply)
     let supplyUL = document.getElementById('supplies')
-     let li = document.createElement('li')
-     li.textContent = supply.supply
-     supplyUL.appendChild(li)
+    let li = document.createElement('li')
+    let div = document.querySelector('.main-div')
+
+     if (div.id === supply.school_name){
+        li.textContent = `${supply.amount} ${supply.supply}`
+        supplyUL.appendChild(li)
+     }
+
 }
 
 
