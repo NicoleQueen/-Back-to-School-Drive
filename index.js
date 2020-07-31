@@ -174,8 +174,8 @@ const financialDonation = (e, school) => {
         let li = document.createElement('li')
         li.textContent = `Thank you ${json.user_name} for your financial contribution`
         ul.appendChild(li)})
-        // .then(json => console.log(json))
     }
+    
 let headerFirst = document.querySelector("header");
 let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page

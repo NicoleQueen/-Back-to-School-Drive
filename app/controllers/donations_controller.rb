@@ -19,7 +19,7 @@ class DonationsController < ApplicationController
             supply.school_id = params[:donation][:school_id]
             supply.amount = params[:donation][:amount]
         end
-# byebug
+
         @donation = Donation.create(amount: params[:donation][:amount], user_id: user.id, supply_id: supply.id)
         render json: @donation
     end
