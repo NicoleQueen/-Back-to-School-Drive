@@ -50,15 +50,15 @@ const schoolPage = (e, school) => {
   div.id = school.name;
   div.innerHTML = "";
   div.innerHTML = `
-
     <h2> ${school.name}</h2>
     <h3> ${school.district} </h3>
-    <p> Supplies needed for upcoming school year </p>
+    <p id="pp"> Supplies needed for upcoming school year </p>
     <div>
         <ul id='supplies' class="list-group">
         </ul>
     </div>
     <form id='supplies-needed'>
+    <span style="color:DarkSlateGrey">Create a New Supply: </span>
         <label>Name</label>
         <input type='text' name='name'>
         <label>Supply</label>
@@ -69,6 +69,7 @@ const schoolPage = (e, school) => {
         <input type="submit" value="Submit">
     </form>
     <form id='monetary-donations'>
+    <span style="color:DarkSlateGrey">Financial Donation: </span>
         <label>Name</label>
         <input type='text' name='name'>
         <label>Dollar Amount</label>
@@ -76,7 +77,8 @@ const schoolPage = (e, school) => {
         <br>
         <input type="submit" value="Submit">
     </form>
-    <form id='supply-update'>
+    <form id='supply-update' name="update_form">
+     <span style="color:DarkSlateGrey">Edit a Supply: </span>
         <label>Supply</label>
         <input type='text' name='supply'>
         <label>Amount</label>
@@ -102,16 +104,18 @@ const schoolPage = (e, school) => {
 };
 
 const schoolSupplies = (supply) => {
-  // console.log(supply);
   let supplyUL = document.getElementById("supplies");
   let li = document.createElement("li");
-  // li.id = supply.school_name;
+
   li.id = supply.id;
-  debugger;
 
   let div = document.querySelector(".main-div");
   if (div.id === supply.school_name) {
-    li.textContent = `${supply.amount} ${supply.supply}`;
+    // li.textContent = `${supply.amount} ${supply.supply} edit`;
+    li.innerHTML = `
+       <h4>${supply.amount}  ${supply.supply}</h4>
+       <span style="color:coral">edit</span>
+    `;
     supplyUL.appendChild(li);
   }
   //update supply: add event listener
@@ -141,8 +145,35 @@ const donateSupplies = (e, school) => {
       name: e.target.name.value,
     },
   };
-  // console.log(data);
+
   fetch("http://localhost:3000/supplies", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+
+  li.addEventListener("click", (e) => DeletedonateSupplies());
+  console.log(e);
+};
+
+const financialDonation = (e, school) => {
+  e.preventDefault();
+  console.log(e.target.name.value);
+  console.log(e.target.amount.value);
+
+  let data = {
+    donation: {
+      supply: "dollar_amount",
+      amount: e.target.amount.value,
+      school_id: school.id,
+      name: e.target.name.value,
+    },
+  };
+
+  fetch("http://localhost:3000/donations", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -151,16 +182,13 @@ const donateSupplies = (e, school) => {
     body: JSON.stringify(data),
   })
     .then((res) => res.json())
-    .then((json) => console.log(json));
-
-  // let ul = document.querySelector("#donated");
-  // let li = document.createElement("li");
-  li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`;
-  ul.appendChild(li);
-};
-
-const financialDonation = (e, school) => {
-  e.preventDefault;
+    .then((json) => {
+      let ul = document.getElementById("donated");
+      let li = document.createElement("li");
+      li.textContent = `Thank you ${json.user_name} for your financial contribution`;
+      ul.appendChild(li);
+    });
+  // .then(json => console.log(json))
 };
 
 let headerFirst = document.querySelector("header");
@@ -185,9 +213,13 @@ const editSupply = (supply) => {
 
 //update supply:patch new data
 const patchSupply = (e, item) => {
-  // debugger;
-  let currentSupply = document.getElementById("${item.supply}");
+  e.preventDefault();
+  let currentSupply = document.getElementById(`${item.id}`);
   currentSupply.textContent = `${e.target[1].value} ${e.target[0].value}`;
+  // currentSupply.innerHTML = `
+  //      <h4>${e.target[1].value}  ${e.target[0].value}</h4>
+  //      <span style="color:coral">edit</span>
+  //   `;
   let data = {
     supply: e.target[0].value,
     amount: e.target[1].value,
@@ -199,11 +231,15 @@ const patchSupply = (e, item) => {
     },
     body: JSON.stringify(data),
   }).then((res) => res.json());
-};
-// const DeletedonateSupplies = () => {
-//     fetch('http://localhost:3000/supplies'),
-//     let currentDonatedSupplies = document.querySelector('li')
-//     currentDonatedSupplies.innerHTML = ''
 
-//     const
-// }
+  // document.update_form.reset();
+};
+
+const DeletedonateSupplies = (e) => {
+  // fetch('http://localhost:3000/supplies'),{
+  // method: 'DELETE'
+  let currentDonatedSupplies = document.querySelector("li");
+  let ulDonate = document.querySelector("#donated");
+  console.log(currentDonatedSupplies);
+  console.log(ulDonate);
+};
