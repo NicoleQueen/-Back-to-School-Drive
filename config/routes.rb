@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :donations, only:[:index, :create, :delete]
+  resources :donations, only:[:index, :show, :create, :delete]
   resources :supplies, only:[:index, :show, :create, :update]
   resources :schools, only:[:index, :show]
   resources :users, only:[:index]

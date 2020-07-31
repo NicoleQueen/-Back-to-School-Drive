@@ -11,6 +11,11 @@ class DonationsController < ApplicationController
         #now only shows the donations for that specific school rather than all donations
     end
     
+    def show 
+        @donation = Donation.find_by_id(params[:id])
+        render json: @donation
+    end
+
     def create
         user = User.find_or_create_by(name: params[:donation][:name])
         
@@ -25,8 +30,7 @@ class DonationsController < ApplicationController
     end
 
     def destroy
-        byebug
-        @donation = Donation.find(params[:li_id])
+        @donation = Supply.find_by_id(params[:id])
         @donation.destroy
         render json: @donation
       end
