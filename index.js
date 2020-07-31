@@ -91,38 +91,8 @@ const schoolPage = (e, school) => {
   form.addEventListener("submit", (e) => donateSupplies(e, school));
   let monetary = document.querySelector("#monetary-donations");
   monetary.addEventListener("submit", (e) => financialDonation(e, school));
-<<<<<<< HEAD
   donationFetch(school)
   fetchSupplies()
-};
-
-
-const schoolSupplies = (supply) => {
-    let supplyUL = document.getElementById("supplies");
-    let li = document.createElement("li");
-    li.id = supply.id
-    let div = document.querySelector(".main-div");
-    if (div.id === supply.school_name) {
-        li.textContent = `${supply.amount} ${supply.supply}`;
-        supplyUL.appendChild(li);
-    }
-};
-
-const schoolDonations = (donation) => {
-    let ul = document.querySelector('#donated')
-    let li = document.createElement('li')
-    li.id = donation.id
-        if (donation.supply_name === "Dollars") {
-            li.textContent = `Thank you ${donation.user_name} for your financial contribution`
-        } else 
-        {li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`}
-    ul.appendChild(li)
-    li.addEventListener("click", () => deleteDonateSupplies(li))
-    console.log(li)
-  
-=======
-  donationFetch(school);
-  fetchSupplies();
 };
 
 const schoolSupplies = (supply) => {
@@ -145,20 +115,20 @@ const schoolSupplies = (supply) => {
 };
 
 const schoolDonations = (donation) => {
-  let ul = document.querySelector("#donated");
-  let li = document.createElement("li");
-  if (donation.supply_name === "Dollars") {
-    li.textContent = `Thank you ${donation.user_name} for your financial contribution`;
-  } else {
-    li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`;
-  }
-  ul.appendChild(li);
->>>>>>> f9ebf09e5fe0423a6d5b755198e86bc0886fc06e
+    let ul = document.querySelector('#donated')
+    let li = document.createElement('li')
+    li.id = donation.id
+        if (donation.supply_name === "Dollars") {
+            li.textContent = `Thank you ${donation.user_name} for your financial contribution`
+        } else 
+        {li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`}
+    ul.appendChild(li)
+    li.addEventListener("click", () => deleteDonateSupplies(li))
+    console.log(li)
 };
 //added code to our fetch (look at it above^)
 
 const donateSupplies = (e, school) => {
-<<<<<<< HEAD
     e.preventDefault()
     let ulDonate = document.querySelector('#donated')
     let li = document.createElement('li')
@@ -177,34 +147,6 @@ const donateSupplies = (e, school) => {
         body: JSON.stringify(data)
     })
     .then(res => res.json())
-=======
-  e.preventDefault();
-  let ulDonate = document.querySelector("#donated");
-  let li = document.createElement("li");
-  li.innerHTML = `${e.target.name.value} donated ${e.target.amount.value} ${e.target.supply.value}`;
-  ulDonate.appendChild(li);
-
-  let data = {
-    supply: {
-      supply: e.target.supply.value,
-      amount: e.target.amount.value,
-      school_id: school.id,
-      name: e.target.name.value,
-    },
-  };
-
-  fetch("http://localhost:3000/supplies", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(data),
-  }).then((res) => res.json());
-
-  li.addEventListener("click", (e) => DeletedonateSupplies());
-  console.log(e);
->>>>>>> f9ebf09e5fe0423a6d5b755198e86bc0886fc06e
 };
 
 const financialDonation = (e, school) => {
@@ -212,14 +154,7 @@ const financialDonation = (e, school) => {
   console.log(e.target.name.value);
   console.log(e.target.amount.value);
 
-  let data = {
-    donation: {
-      supply: "dollar_amount",
-      amount: e.target.amount.value,
-      school_id: school.id,
-      name: e.target.name.value,
-    },
-  };
+  let data = {donation: {supply: "dollar_amount", amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}};
 
   fetch("http://localhost:3000/donations", {
     method: "POST",
@@ -236,13 +171,11 @@ const financialDonation = (e, school) => {
       li.textContent = `Thank you ${json.user_name} for your financial contribution`;
       ul.appendChild(li);
     });
-  // .then(json => console.log(json))
 };
 
 let headerFirst = document.querySelector("header");
 let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
-<<<<<<< HEAD
 home.addEventListener("click", (e) => showHomePage());
 
 const deleteDonateSupplies = (li) => {
@@ -261,7 +194,7 @@ const deleteDonateSupplies = (li) => {
 //      console.log(currentDonatedSupplies)
 //      console.log(ulDonate) 
 }
-=======
+
 // home.addEventListener("click", (e) => showHomePage());
 
 //update supply:fetch one supply which need to update
@@ -302,13 +235,3 @@ const patchSupply = (e, item) => {
 
   // document.update_form.reset();
 };
-
-const DeletedonateSupplies = (e) => {
-  // fetch('http://localhost:3000/supplies'),{
-  // method: 'DELETE'
-  let currentDonatedSupplies = document.querySelector("li");
-  let ulDonate = document.querySelector("#donated");
-  console.log(currentDonatedSupplies);
-  console.log(ulDonate);
-};
->>>>>>> f9ebf09e5fe0423a6d5b755198e86bc0886fc06e
