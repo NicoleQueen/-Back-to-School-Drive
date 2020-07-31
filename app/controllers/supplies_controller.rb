@@ -3,4 +3,9 @@ class SuppliesController < ApplicationController
     @supplies = Supply.all 
     render json: @supplies
   end
+
+  def show 
+    @supply = School.find_by_id(params[:id])
+    render json: @supply
+  end
 end

@@ -1,5 +1,6 @@
 class DonationsController < ApplicationController
     def index
+        # byebug
         supplies = Supply.where("school_id = ?", params[:school_id])
         #we are accessing supplies because that links our donations to our school
         #we pull in the school_id from the fetch as a param
@@ -9,9 +10,5 @@ class DonationsController < ApplicationController
         render json: @donations
         #now only shows the donations for that specific school rather than all donations
     end
-
-    # def index
-    #     @donations = Donation.all
-    #     render json: @donations
-    # end
 end
+
