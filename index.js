@@ -51,7 +51,7 @@ const schoolPage = (e, school) => {
         </ul>
     </div>
     <form id='supplies-needed'>
-    <span style="color:DarkSlateGrey">Create a New Supply: </span>
+    <span style="color:DarkSlateGrey"> Please Donate Here:</span><br>
         <label>Name</label>
         <input type='text' name='name'>
         <label>Supply</label>
@@ -62,7 +62,7 @@ const schoolPage = (e, school) => {
         <input type="submit" value="Submit">
     </form>
     <form id='monetary-donations'>
-    <span style="color:DarkSlateGrey">Financial Donation: </span>
+    <span style="color:DarkSlateGrey">If you would prefer to make a financial donation, Please Donate Here: </span><br>
         <label>Name</label>
         <input type='text' name='name'>
         <label>Dollar Amount</label>
@@ -71,7 +71,7 @@ const schoolPage = (e, school) => {
         <input type="submit" value="Submit">
     </form>
     <form id='supply-update' name="update_form">
-     <span style="color:DarkSlateGrey">Edit a Supply: </span>
+     <span style="color:DarkSlateGrey">Edit a Supply </span><br>
         <label>Supply</label>
         <input type='text' name='supply'>
         <label>Amount</label>
@@ -123,8 +123,7 @@ const schoolDonations = (donation) => {
         } else 
         {li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`}
     ul.appendChild(li)
-    li.addEventListener("click", () => deleteDonateSupplies(li))
-    console.log(li)
+    li.addEventListener("click", () => deleteDonateSupplies(donation))
 };
 //added code to our fetch (look at it above^)
 
@@ -178,9 +177,9 @@ let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
 home.addEventListener("click", (e) => showHomePage());
 
-const deleteDonateSupplies = (li) => {
-    console.log('hi')
-      fetch(`http://localhost:3000/donations/${li.id}`,{
+const deleteDonateSupplies = (donation) => {
+    console.log(donation)
+      fetch(`http://localhost:3000/donations/${donation.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
