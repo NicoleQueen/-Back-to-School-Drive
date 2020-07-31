@@ -76,14 +76,22 @@ const schoolPage = (e, school) => {
 
 
 const schoolSupplies = (supply) => {
-    let supplyUL = document.getElementById("supplies");
-    let li = document.createElement("li");
-    li.id = supply.id
-    let div = document.querySelector(".main-div");
-    if (div.id === supply.school_name) {
-        li.textContent = `${supply.amount} ${supply.supply}`;
-        supplyUL.appendChild(li);
-    }
+  let supplyUL = document.getElementById("supplies");
+  let li = document.createElement("li");
+
+  li.id = supply.id;
+
+  let div = document.querySelector(".main-div");
+  if (div.id === supply.school_name) {
+    // li.textContent = `${supply.amount} ${supply.supply} edit`;
+    li.innerHTML = `
+       <h4>${supply.amount}  ${supply.supply}</h4>
+       <span style="color:coral">edit</span>
+    `;
+    supplyUL.appendChild(li);
+  }
+  //update supply: add event listener
+  li.addEventListener("click", (e) => fetchOneSupply(supply.id));
 };
 
 const schoolDonations = (donation) => {
@@ -97,7 +105,7 @@ const schoolDonations = (donation) => {
     ul.appendChild(li)
     li.addEventListener("click", () => deleteDonateSupplies(li))
     console.log(li)
-  
+
 };
 //added code to our fetch (look at it above^)
 
@@ -128,6 +136,28 @@ const financialDonation = (e, school) => {
     console.log(e.target.amount.value)
 
     let data = {donation: {supply: 'Dollars', amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}}
+  e.preventDefault();
+  console.log(e.target.name.value);
+  console.log(e.target.amount.value);
+
+  let data = {donation: {supply: "dollar_amount", amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}};
+
+  fetch("http://localhost:3000/donations", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      let ul = document.getElementById("donated");
+      let li = document.createElement("li");
+      li.textContent = `Thank you ${json.user_name} for your financial contribution`;
+      ul.appendChild(li);
+    });
+};
 
     fetch('http://localhost:3000/donations', {
         method: 'POST',
@@ -165,3 +195,45 @@ const deleteDonateSupplies = (li) => {
 //      console.log(currentDonatedSupplies)
 //      console.log(ulDonate) 
 }
+
+
+// home.addEventListener("click", (e) => showHomePage());
+
+//update supply:fetch one supply which need to update
+const fetchOneSupply = (id) => {
+  fetch(`http://localhost:3000/supplies/${id}`)
+    .then((res) => res.json())
+    .then((json) => editSupply(json));
+};
+
+//updat supply: set origin data to form
+const editSupply = (supply) => {
+  let form = document.querySelector("#supply-update");
+  form.supply.value = supply.supply;
+  form.amount.value = supply.amount;
+  form.addEventListener("submit", (e) => patchSupply(e, supply));
+};
+
+//update supply:patch new data
+const patchSupply = (e, item) => {
+  e.preventDefault();
+  let currentSupply = document.getElementById(`${item.id}`);
+  currentSupply.textContent = `${e.target[1].value} ${e.target[0].value}`;
+  // currentSupply.innerHTML = `
+  //      <h4>${e.target[1].value}  ${e.target[0].value}</h4>
+  //      <span style="color:coral">edit</span>
+  //   `;
+  let data = {
+    supply: e.target[0].value,
+    amount: e.target[1].value,
+  };
+  fetch(`http://localhost:3000/supplies/${item.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+
+  // document.update_form.reset();
+};
