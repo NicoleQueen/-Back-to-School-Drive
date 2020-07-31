@@ -79,7 +79,7 @@ const schoolPage = (e, school) => {
 const schoolSupplies = (supply) => {
     let supplyUL = document.getElementById("supplies");
     let li = document.createElement("li");
-    li.id = supply.school_name
+    // li.id = supply.school_name
     let div = document.querySelector(".main-div");
     if (div.id === supply.school_name) {
         li.textContent = `${supply.amount} ${supply.supply}`;
@@ -90,7 +90,10 @@ const schoolSupplies = (supply) => {
 const schoolDonations = (donation) => {
     let ul = document.querySelector('#donated')
     let li = document.createElement('li')
-    li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`
+        if (donation.supply_name === "Dollars") {
+            li.textContent = `Thank you ${donation.user_name} for your financial contribution`
+        } else 
+        {li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`}
     ul.appendChild(li)
 }
 //added code to our fetch (look at it above^)
@@ -116,8 +119,6 @@ const donateSupplies = (e, school) => {
 
     li.addEventListener("click", (e) => DeletedonateSupplies())
     console.log(e)
-}
-=======
 };
 
 const financialDonation = (e, school) => {
@@ -125,7 +126,7 @@ const financialDonation = (e, school) => {
     console.log(e.target.name.value)
     console.log(e.target.amount.value)
 
-    let data = {donation: {supply: 'dollar_amount', amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}}
+    let data = {donation: {supply: 'Dollars', amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}}
 
     fetch('http://localhost:3000/donations', {
         method: 'POST',
