@@ -1,30 +1,19 @@
 fetch("http://localhost:3000/schools")
-  .then((res) => res.json())
-  .then((json) =>
-    json.forEach((school) => {
-      showSchools(school);
-    })
+  .then(res => res.json())
+  .then(json => json.forEach(school => {showSchools(school)})
   );
 
 const donationFetch = (school) => {
-  fetch(`http://localhost:3000/donations?school_id=${school.id}`)
+ fetch(`http://localhost:3000/donations?school_id=${school.id}`)
     // everything after the ? is included in the params (now have access to school_id)
-    .then((res) => res.json())
-    .then((json) =>
-      json.forEach((donation) => {
-        schoolDonations(donation);
-      })
-    );
-};
+    .then(res => res.json())
+    .then(json => json.forEach(donation => {schoolDonations(donation)}))
+}
 
 const fetchSupplies = () => {
   fetch("http://localhost:3000/supplies")
-    .then((res) => res.json())
-    .then((json) =>
-      json.forEach((supply) => {
-        schoolSupplies(supply);
-      })
-    );
+    .then(res => res.json())
+    .then(json => json.forEach(supply => {schoolSupplies(supply)}));
 };
 
 const showSchools = (school) => {
@@ -38,16 +27,7 @@ const showSchools = (school) => {
 };
 
 const schoolPage = (e, school) => {
-  // let navBar = document.getElementById("School-Menu");
-  // let lis = navBar.querySelector("li");
-  // console.log(lis);
-  // lis.forEach((li) => {
-  //   li.className = 'list-group-item';
-  // });
   e.target.className = "list-group-item active";
-
-  // console.log(e.target.className);
-
   let div = document.querySelector(".main-div");
   div.id = school.name;
   div.innerHTML = "";
@@ -57,7 +37,7 @@ const schoolPage = (e, school) => {
     <h3> ${school.district} </h3>
     <p> Supplies needed for upcoming school year </p>
     <div>
-        <ul id='supplies' class="list-group">
+        <ul id='supplies'>
         </ul>
     </div>
     <form id='supplies-needed'>
@@ -78,53 +58,43 @@ const schoolPage = (e, school) => {
         <br>
         <input type="submit" value="Submit">
     </form>
-    <form id='supply-update'>
-        <label>Supply</label>
-        <input type='text' name='supply'>
-        <label>Amount</label>
-        <input type='number' name='amount'>
-        <br>
-        <input type="submit" value="Submit">
-    </form>
     <h3 id = "thanks">Thank you to all that have donated! Your generosity has improved the educational experience for our students.</h3>
     <div>
        <ul id='donated'>
+      <button> delete</button>
         </ul>
     </div>
     `;
 
-  let form = document.querySelector("#supplies-needed");
-  form.addEventListener("submit", (e) => donateSupplies(e, school));
+    let form = document.querySelector("#supplies-needed");
+    form.addEventListener("submit", (e) => donateSupplies(e, school));
 
-  let monetary = document.querySelector("#monetary-donations");
-  monetary.addEventListener("submit", (e) => financialDonation(e, school));
+    let monetary = document.querySelector('#monetary-donations')
+    monetary.addEventListener('submit', (e) => financialDonation(e, school))
 
-  donationFetch(school);
-  fetchSupplies();
+    donationFetch(school)
+    fetchSupplies()
+}
+
+const schoolSupplies = (supply, e) => {
+    let supplyUL = document.getElementById("supplies");
+    let li = document.createElement("li");
+    li.id = supply.school_name
+    let div = document.querySelector(".main-div");
+    if (div.id === supply.school_name) {
+        li.textContent = `${supply.amount} ${supply.supply}`;
+        supplyUL.appendChild(li);
+    }
 };
 
-const schoolSupplies = (supply) => {
-  let supplyUL = document.getElementById("supplies");
-  let li = document.createElement("li");
-
-  li.id = supply.id;
-
-  let div = document.querySelector(".main-div");
-  if (div.id === supply.school_name) {
-    li.textContent = `${supply.amount} ${supply.supply}`;
-    supplyUL.appendChild(li);
-  }
-  //update supply: add event listener
-  li.addEventListener("click", (e) => fetchOneSupply(supply.id));
-
-};
-
-const schoolDonations = (donation) => {
-  let ul = document.querySelector("#donated");
-  let li = document.createElement("li");
-  li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`;
-  ul.appendChild(li);
-};
+const schoolDonations = (donation, e) => {
+    let ul = document.querySelector('#donated')
+    let li = document.createElement('li')
+    li.addEventListener("click", (e) => deleteDonateSupplies(e, li))
+    console.log(e, li)
+    li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`
+    ul.appendChild(li)
+}
 //added code to our fetch (look at it above^)
 
 const donateSupplies = (e, school) => {
@@ -133,7 +103,7 @@ const donateSupplies = (e, school) => {
     let li = document.createElement('li')
     li.innerHTML = `${e.target.name.value} donated ${e.target.amount.value} ${e.target.supply.value}`
     ulDonate.appendChild(li)
-    
+
     li.addEventListener("click", (e) => deleteDonateSupplies(e, li))
     console.log(e)
 
@@ -176,40 +146,7 @@ const financialDonation = (e, school) => {
 let headerFirst = document.querySelector("header");
 let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
-// home.addEventListener("click", (e) => showHomePage());
-
-//update supply:fetch one supply which need to update
-const fetchOneSupply = (id) => {
-  fetch(`http://localhost:3000/supplies/${id}`)
-    .then((res) => res.json())
-    .then((json) => editSupply(json));
-};
-
-//updat supply: set origin data to form
-const editSupply = (supply) => {
-  let form = document.querySelector("#supply-update");
-  form.supply.value = supply.supply;
-  form.amount.value = supply.amount;
-  form.addEventListener("submit", (e) => patchSupply(e, supply));
-};
-
-//update supply:patch new data
-const patchSupply = (e, item) => {
-  // debugger;
-  let currentSupply = document.getElementById("${item.supply}");
-  currentSupply.textContent = `${e.target[1].value} ${e.target[0].value}`;
-  let data = {
-    supply: e.target[0].value,
-    amount: e.target[1].value,
-  };
-  fetch(`http://localhost:3000/supplies/${item.id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  }).then((res) => res.json());
-};
+home.addEventListener("click", (e) => showHomePage());
 
 const deleteDonateSupplies = (e, li) => {
      // fetch('http://localhost:3000/supplies'),{
@@ -219,4 +156,3 @@ const deleteDonateSupplies = (e, li) => {
 //      console.log(currentDonatedSupplies)
 //      console.log(ulDonate) 
 }
-
