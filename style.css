@@ -33,7 +33,7 @@ h1 {
 
 h2 {
   font-family: "Great Vibes", cursive;
-  font-size: 60px;
+  font-size: 55px;
   color: #0763a5;
   margin: 10px 0;
   padding-top: 50px;
@@ -42,11 +42,19 @@ h2 {
 
 h3 {
   font-family: "Great Vibes", cursive;
-  font-size: 25px;
+  font-size: 27px;
   color: #3493d5;
-  margin: 10px 0;
+  margin: 3px 0;
 }
 /*city and thank you heading*/
+
+h4 {
+  font-family: "Great Vibes", cursive;
+  font-size: 22px;
+  color: grey;
+  margin: 3px 0;
+  padding-top: 12px;
+}
 
 p {
   font-family: Georgia, serif;
@@ -55,6 +63,12 @@ p {
   margin: 80px 0;
 }
 /* home/school page description*/
+form {
+  margin: 10px 0;
+}
+#pp {
+  margin: 9px 0;
+}
 
 ul {
   list-style-type: none;
@@ -66,7 +80,6 @@ li {
   font-family: Georgia, serif;
   font-size: 18px;
   margin: 8px 0;
-
 }
 
 #logo img {

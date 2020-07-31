@@ -17,8 +17,14 @@ class SuppliesController < ApplicationController
   end
 
   def update
-    @supply = School.find_by_id(params[:id])
-    @supply.update(supply: params[:supply][:supply], amount: params[:supply][:amount])
+    @supply = Supply.find_by_id(params[:id])
+    @supply.update(supply: params[:supply], amount: params[:amount])
+    render json: @supply
+  end
+
+  def delete
+    @supply = Supply.find(params[:supply_id])
+    @supply.destroy
     render json: @supply
   end
 end

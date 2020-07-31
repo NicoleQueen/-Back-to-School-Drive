@@ -23,5 +23,12 @@ class DonationsController < ApplicationController
         @donation = Donation.create(amount: params[:donation][:amount], user_id: user.id, supply_id: supply.id)
         render json: @donation
     end
+
+    def destroy
+        byebug
+        @donation = Donation.find(params[:li_id])
+        @donation.destroy
+        render json: @donation
+      end
 end
 
