@@ -102,12 +102,10 @@ const schoolPage = (e, school) => {
 };
 
 const schoolSupplies = (supply) => {
-  // console.log(supply);
   let supplyUL = document.getElementById("supplies");
   let li = document.createElement("li");
-  // li.id = supply.school_name;
+
   li.id = supply.id;
-  debugger;
 
   let div = document.querySelector(".main-div");
   if (div.id === supply.school_name) {
@@ -116,6 +114,7 @@ const schoolSupplies = (supply) => {
   }
   //update supply: add event listener
   li.addEventListener("click", (e) => fetchOneSupply(supply.id));
+
 };
 
 const schoolDonations = (donation) => {
@@ -127,41 +126,51 @@ const schoolDonations = (donation) => {
 //added code to our fetch (look at it above^)
 
 const donateSupplies = (e, school) => {
-  e.preventDefault();
-  let ulDonate = document.querySelector("#donated");
-  let li = document.createElement("li");
-  li.innerHTML = `${e.target.name.value} donated ${e.target.amount.value} ${e.target.supply.value}`;
-  ulDonate.appendChild(li);
+    e.preventDefault()
+    let ulDonate = document.querySelector('#donated')
+    let li = document.createElement('li')
+    li.innerHTML = `${e.target.name.value} donated ${e.target.amount.value} ${e.target.supply.value}`
+    ulDonate.appendChild(li)
 
-  let data = {
-    supply: {
-      supply: e.target.supply.value,
-      amount: e.target.amount.value,
-      school_id: school.id,
-      name: e.target.name.value,
-    },
-  };
-  // console.log(data);
-  fetch("http://localhost:3000/supplies", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((res) => res.json())
-    .then((json) => console.log(json));
+   let data = {supply: {supply:e.target.supply.value, amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}}
+    
+   fetch('http://localhost:3000/supplies', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
 
-  // let ul = document.querySelector("#donated");
-  // let li = document.createElement("li");
-  li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`;
-  ul.appendChild(li);
-};
+    li.addEventListener("click", (e) => DeletedonateSupplies())
+    console.log(e)
+}
 
 const financialDonation = (e, school) => {
-  e.preventDefault;
-};
+    e.preventDefault()
+    console.log(e.target.name.value)
+    console.log(e.target.amount.value)
+
+    let data = {donation: {supply: 'dollar_amount', amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}}
+
+    fetch('http://localhost:3000/donations', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(json => {
+        let ul = document.getElementById('donated')
+        let li = document.createElement('li')
+        li.textContent = `Thank you ${json.user_name} for your financial contribution`
+        ul.appendChild(li)})
+        // .then(json => console.log(json))
+}
 
 let headerFirst = document.querySelector("header");
 let home = headerFirst.querySelector("h1");
@@ -200,10 +209,14 @@ const patchSupply = (e, item) => {
     body: JSON.stringify(data),
   }).then((res) => res.json());
 };
-// const DeletedonateSupplies = () => {
-//     fetch('http://localhost:3000/supplies'),
-//     let currentDonatedSupplies = document.querySelector('li')
-//     currentDonatedSupplies.innerHTML = ''
 
-//     const
-// }
+const DeletedonateSupplies = (e) => {
+    // fetch('http://localhost:3000/supplies'),{
+    // method: 'DELETE'
+    let currentDonatedSupplies = document.querySelector('li')
+    let ulDonate = document.querySelector('#donated')
+    console.log(currentDonatedSupplies)
+    console.log(ulDonate) 
+}
+
+
