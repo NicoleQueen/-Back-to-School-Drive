@@ -114,13 +114,9 @@ console.log(data)
         body: JSON.stringify(data)
     })
     .then(res => res.json())
-    .then(json => console.log(json))
-
-    let ul = document.querySelector('#donated')
-    let li = document.createElement('li')
-    li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`
-    ul.appendChild(li)
-};
+    li.addEventListener("click", (e) => DeletedonateSupplies())
+    console.log(e)
+}
 
 
 const financialDonation = (e, school) => {
@@ -133,11 +129,12 @@ let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
 home.addEventListener("click", (e) => showHomePage());
 
-// const DeletedonateSupplies = () => {
-//     fetch('http://localhost:3000/supplies'),
-//     let currentDonatedSupplies = document.querySelector('li')
-//     currentDonatedSupplies.innerHTML = ''
-
-//     const 
-// }
+const DeletedonateSupplies = (e) => {
+    // fetch('http://localhost:3000/supplies'),{
+    // method: 'DELETE'
+    let currentDonatedSupplies = document.querySelector('li')
+    let ulDonate = document.querySelector('#donated')
+    console.log(currentDonatedSupplies)
+    console.log(ulDonate) 
+}
 
