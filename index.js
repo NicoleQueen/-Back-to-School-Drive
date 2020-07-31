@@ -115,6 +115,11 @@ console.log(data)
     })
     .then(res => res.json())
     .then(json => console.log(json))
+
+    let ul = document.querySelector('#donated')
+    let li = document.createElement('li')
+    li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`
+    ul.appendChild(li)
 };
 
 
@@ -135,3 +140,4 @@ home.addEventListener("click", (e) => showHomePage());
 
 //     const 
 // }
+
