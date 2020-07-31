@@ -24,8 +24,9 @@ class DonationsController < ApplicationController
         render json: @donation
     end
 
-    def delete
-        @donation = Donation.find(params[:donation_id])
+    def destroy
+        byebug
+        @donation = Donation.find(params[:li_id])
         @donation.destroy
         render json: @donation
       end
