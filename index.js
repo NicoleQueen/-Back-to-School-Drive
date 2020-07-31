@@ -77,7 +77,6 @@ const schoolPage = (e, school) => {
 }
 
 const schoolSupplies = (supply) => {
-    console.log(supply)
     let supplyUL = document.getElementById("supplies");
     let li = document.createElement("li");
     li.id = supply.school_name
@@ -104,8 +103,8 @@ const donateSupplies = (e, school) => {
     ulDonate.appendChild(li)
 
    let data = {supply: {supply:e.target.supply.value, amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}}
-console.log(data)
-     fetch('http://localhost:3000/supplies', {
+    
+   fetch('http://localhost:3000/supplies', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -114,18 +113,30 @@ console.log(data)
         body: JSON.stringify(data)
     })
     .then(res => res.json())
-    .then(json => console.log(json))
-
-    let ul = document.querySelector('#donated')
-    let li = document.createElement('li')
-    li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`
-    ul.appendChild(li)
 };
 
-
 const financialDonation = (e, school) => {
-    e.preventDefault 
+    e.preventDefault()
+    console.log(e.target.name.value)
+    console.log(e.target.amount.value)
 
+    let data = {donation: {supply: 'dollar_amount', amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}}
+
+    fetch('http://localhost:3000/donations', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(json => {
+        let ul = document.getElementById('donated')
+        let li = document.createElement('li')
+        li.textContent = `Thank you ${json.user_name} for your financial contribution`
+        ul.appendChild(li)})
+        // .then(json => console.log(json))
 }
 
 let headerFirst = document.querySelector("header");
