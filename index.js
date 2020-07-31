@@ -61,7 +61,7 @@ const schoolPage = (e, school) => {
     <h3 id = "thanks">Thank you to all that have donated! Your generosity has improved the educational experience for our students.</h3>
     <div>
        <ul id='donated'>
-      <button> delete</button>
+    
         </ul>
     </div>
 
@@ -70,15 +70,15 @@ const schoolPage = (e, school) => {
   form.addEventListener("submit", (e) => donateSupplies(e, school));
   let monetary = document.querySelector("#monetary-donations");
   monetary.addEventListener("submit", (e) => financialDonation(e, school));
+  donationFetch(school)
+  fetchSupplies()
 };
-    donationFetch(school)
-    fetchSupplies()
-}
 
-const schoolSupplies = (supply, e) => {
+
+const schoolSupplies = (supply) => {
     let supplyUL = document.getElementById("supplies");
     let li = document.createElement("li");
-    li.id = supply.school_name
+    li.id = supply.id
     let div = document.querySelector(".main-div");
     if (div.id === supply.school_name) {
         li.textContent = `${supply.amount} ${supply.supply}`;
@@ -89,11 +89,15 @@ const schoolSupplies = (supply, e) => {
 const schoolDonations = (donation) => {
     let ul = document.querySelector('#donated')
     let li = document.createElement('li')
+    li.id = donation.id
         if (donation.supply_name === "Dollars") {
             li.textContent = `Thank you ${donation.user_name} for your financial contribution`
         } else 
         {li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`}
     ul.appendChild(li)
+    li.addEventListener("click", () => deleteDonateSupplies(li))
+    console.log(li)
+  
 };
 //added code to our fetch (look at it above^)
 
@@ -104,8 +108,6 @@ const donateSupplies = (e, school) => {
     li.innerHTML = `${e.target.name.value} donated ${e.target.amount.value} ${e.target.supply.value}`
     ulDonate.appendChild(li)
 
-    li.addEventListener("click", (e) => deleteDonateSupplies(e, li))
-    console.log(e)
 
    let data = {supply: {supply:e.target.supply.value, amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}}
     
@@ -148,10 +150,18 @@ let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
 home.addEventListener("click", (e) => showHomePage());
 
-const deleteDonateSupplies = (e, li) => {
-     // fetch('http://localhost:3000/supplies'),{
-     // method: 'DELETE'
-//      let currentDonatedSupplies = document.querySelector('li')
+const deleteDonateSupplies = (li) => {
+    console.log('hi')
+      fetch(`http://localhost:3000/donations/${li.id}`,{
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(json => console.log(json))
+    // let currentDonatedSupplies = document.querySelector('li')
 //      let ulDonate = document.querySelector('#donated')
 //      console.log(currentDonatedSupplies)
 //      console.log(ulDonate) 
