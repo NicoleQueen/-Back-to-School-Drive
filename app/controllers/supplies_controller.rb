@@ -4,6 +4,11 @@ class SuppliesController < ApplicationController
     render json: @supplies
   end
 
+  def show 
+    @supply = Supply.find_by_id(params[:id])
+    render json: @supply
+  end
+
   def create
     @supply = Supply.create(supply: params[:supply][:supply], amount: params[:supply][:amount], school_id: params[:supply][:school_id])
     user = User.find_or_create_by(name: params[:supply][:name])
@@ -11,7 +16,9 @@ class SuppliesController < ApplicationController
     render json: @supply
   end
 
-
-def delete
-@supply.destroy
+  def update
+    @supply = School.find_by_id(params[:id])
+    @supply.update(supply: params[:supply][:supply], amount: params[:supply][:amount])
+    render json: @supply
+  end
 end
