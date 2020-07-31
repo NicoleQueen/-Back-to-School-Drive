@@ -38,14 +38,7 @@ const showSchools = (school) => {
 };
 
 const schoolPage = (e, school) => {
-  // let navBar = document.getElementById("School-Menu");
-  // let lis = navBar.querySelector("li");
-  // console.log(lis);
-  // lis.forEach((li) => {
-  //   li.className = 'list-group-item';
-  // });
   e.target.className = "list-group-item active";
-  // console.log(e.target.className);
   let div = document.querySelector(".main-div");
   div.id = school.name;
   div.innerHTML = "";
@@ -54,7 +47,7 @@ const schoolPage = (e, school) => {
     <h3> ${school.district} </h3>
     <p id="pp"> Supplies needed for upcoming school year </p>
     <div>
-        <ul id='supplies' class="list-group">
+        <ul id='supplies'>
         </ul>
     </div>
     <form id='supplies-needed'>
@@ -88,17 +81,16 @@ const schoolPage = (e, school) => {
     </form>
     <h3 id = "thanks">Thank you to all that have donated! Your generosity has improved the educational experience for our students.</h3>
     <div>
-        <ul id='donated'>
+       <ul id='donated'>
+      <button> delete</button>
         </ul>
     </div>
-    `;
 
+`;
   let form = document.querySelector("#supplies-needed");
   form.addEventListener("submit", (e) => donateSupplies(e, school));
-
   let monetary = document.querySelector("#monetary-donations");
   monetary.addEventListener("submit", (e) => financialDonation(e, school));
-
   donationFetch(school);
   fetchSupplies();
 };
@@ -125,7 +117,11 @@ const schoolSupplies = (supply) => {
 const schoolDonations = (donation) => {
   let ul = document.querySelector("#donated");
   let li = document.createElement("li");
-  li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`;
+  if (donation.supply_name === "Dollars") {
+    li.textContent = `Thank you ${donation.user_name} for your financial contribution`;
+  } else {
+    li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`;
+  }
   ul.appendChild(li);
 };
 //added code to our fetch (look at it above^)

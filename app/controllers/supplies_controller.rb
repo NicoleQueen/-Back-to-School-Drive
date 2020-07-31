@@ -21,4 +21,10 @@ class SuppliesController < ApplicationController
     @supply.update(supply: params[:supply], amount: params[:amount])
     render json: @supply
   end
+
+  def delete
+    @supply = Supply.find(params[:supply_id])
+    @supply.destroy
+    render json: @supply
+  end
 end
