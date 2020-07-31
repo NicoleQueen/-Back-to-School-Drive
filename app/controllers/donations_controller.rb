@@ -10,5 +10,8 @@ class DonationsController < ApplicationController
         render json: @donations
         #now only shows the donations for that specific school rather than all donations
     end
+    
+    def create
+    end
 end
 
