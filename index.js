@@ -128,13 +128,6 @@ const donateSupplies = (e, school) => {
     li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`
     ul.appendChild(li)
 
-    // let donate = document.createElement('li')
-    // let ul = document.querySelector('#supplies')
-
-    // donate.innerText = e.target.name.value
-    // donate.innerText = e.target.supply.value
-    // donate.innerText = e.target.amount.value
-    // ul.appendChild(donate)
 };
 //added code to our fetch (look at it above^)
 
@@ -147,11 +140,3 @@ let headerFirst = document.querySelector("header");
 let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
 home.addEventListener("click", (e) => showHomePage());
-
-const DeletedonateSupplies = () => {
-    fetch('http://localhost:3000/supplies'),
-    let currentDonatedSupplies = document.querySelector('li')
-    currentDonatedSupplies.innerHTML = ''
-
-    const 
-}
