@@ -89,29 +89,22 @@ const schoolSupplies = (supply) => {
 };
 
 const schoolDonations = (donation) => {
-
-    let menu = document.querySelector('.main-div')
-    let div = document.createElement('div')
-    div.id = 'donated'
-    div.innerHTML = `
-    ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
-    `
-    menu.appendChild(div)
-
+    let ul = document.querySelector('#donated')
+    let li = document.createElement('li')
+    li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`
+    ul.appendChild(li)
 }
-    
 //added code to our fetch (look at it above^)
 
 const donateSupplies = (e, school) => {
     e.preventDefault()
-    // console.log(e.target)
     let ulDonate = document.querySelector('#donated')
     let li = document.createElement('li')
-    // ${donation.user_name} donated ${donation.amount} ${donation.supply_name}
     li.innerHTML = `${e.target.name.value} donated ${e.target.amount.value} ${e.target.supply.value}`
     ulDonate.appendChild(li)
-   let data = { supply: e.target.supply.value, amount: e.target.amount.value, school_id: school.id}
-     // console.log(ulDonate)
+
+   let data = {supply: {supply:e.target.supply.value, amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}}
+console.log(data)
      fetch('http://localhost:3000/supplies', {
         method: 'POST',
         headers: {
@@ -127,9 +120,8 @@ const donateSupplies = (e, school) => {
     let li = document.createElement('li')
     li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`
     ul.appendChild(li)
-
 };
-//added code to our fetch (look at it above^)
+
 
 const financialDonation = (e, school) => {
     e.preventDefault 
@@ -140,3 +132,12 @@ let headerFirst = document.querySelector("header");
 let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
 home.addEventListener("click", (e) => showHomePage());
+
+// const DeletedonateSupplies = () => {
+//     fetch('http://localhost:3000/supplies'),
+//     let currentDonatedSupplies = document.querySelector('li')
+//     currentDonatedSupplies.innerHTML = ''
+
+//     const 
+// }
+
