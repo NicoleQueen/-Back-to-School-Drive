@@ -10,4 +10,8 @@ class SuppliesController < ApplicationController
     d = Donation.create(amount: params[:supply][:amount], user_id: user.id, supply_id: @supply.id)
     render json: @supply
   end
+
+
+def delete
+@supply.destroy
 end

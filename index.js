@@ -28,7 +28,6 @@ const showSchools = (school) => {
 
 const schoolPage = (e, school) => {
   e.target.className = "list-group-item active";
-  console.log(e.target.className)
   let div = document.querySelector(".main-div");
   div.id = school.name;
   div.innerHTML = "";
@@ -61,7 +60,7 @@ const schoolPage = (e, school) => {
     </form>
     <h3 id = "thanks">Thank you to all that have donated! Your generosity has improved the educational experience for our students.</h3>
     <div>
-        <ul id='donated'>
+       <ul id='donated'>
         </ul>
     </div>
     `;
@@ -90,6 +89,8 @@ const schoolSupplies = (supply) => {
 const schoolDonations = (donation) => {
     let ul = document.querySelector('#donated')
     let li = document.createElement('li')
+    li.addEventListener("click", (e) => deleteDonateSupplies(e, li))
+    // console.log(e)
     li.textContent = `${donation.user_name} donated ${donation.amount} ${donation.supply_name}`
     ul.appendChild(li)
 }
@@ -101,6 +102,9 @@ const donateSupplies = (e, school) => {
     let li = document.createElement('li')
     li.innerHTML = `${e.target.name.value} donated ${e.target.amount.value} ${e.target.supply.value}`
     ulDonate.appendChild(li)
+    
+    li.addEventListener("click", (e) => deleteDonateSupplies(e, li))
+    console.log(e)
 
    let data = {supply: {supply:e.target.supply.value, amount: e.target.amount.value, school_id: school.id, name: e.target.name.value}}
     
@@ -113,12 +117,7 @@ const donateSupplies = (e, school) => {
         body: JSON.stringify(data)
     })
     .then(res => res.json())
-
-    li.addEventListener("click", (e) => DeletedonateSupplies())
-    console.log(e)
 }
-=======
-};
 
 const financialDonation = (e, school) => {
     e.preventDefault()
@@ -142,19 +141,17 @@ const financialDonation = (e, school) => {
         li.textContent = `Thank you ${json.user_name} for your financial contribution`
         ul.appendChild(li)})
         // .then(json => console.log(json))
-}
-
+    }
 let headerFirst = document.querySelector("header");
 let home = headerFirst.querySelector("h1");
 //click title "Back To School Drive", will back to home page
 home.addEventListener("click", (e) => showHomePage());
 
-const DeletedonateSupplies = (e) => {
-    // fetch('http://localhost:3000/supplies'),{
-    // method: 'DELETE'
-    let currentDonatedSupplies = document.querySelector('li')
-    let ulDonate = document.querySelector('#donated')
-    console.log(currentDonatedSupplies)
-    console.log(ulDonate) 
+const deleteDonateSupplies = (e, li) => {
+     // fetch('http://localhost:3000/supplies'),{
+     // method: 'DELETE'
+//      let currentDonatedSupplies = document.querySelector('li')
+//      let ulDonate = document.querySelector('#donated')
+//      console.log(currentDonatedSupplies)
+//      console.log(ulDonate) 
 }
-
