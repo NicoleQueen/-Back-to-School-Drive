@@ -12,11 +12,14 @@ class DonationsController < ApplicationController
     end
     
     def create
-        # byebug
         user = User.find_or_create_by(name: params[:donation][:name])
-
-        supply = Supply.find_or_create_by(supply: params[:donation][:supply], amount: params[:donation][:amount], school_id: params[:donation][:school_id])
         
+        supply = Supply.where('supply = ? and school_id =?', params[:donation][:supply], params[:donation][:school_id]).first_or_create do |supply|
+            supply.supply = params[:donation][:supply]
+            supply.school_id = params[:donation][:school_id]
+            supply.amount = params[:donation][:amount]
+        end
+# byebug
         @donation = Donation.create(amount: params[:donation][:amount], user_id: user.id, supply_id: supply.id)
         render json: @donation
     end
