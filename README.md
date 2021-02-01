@@ -58,4 +58,4 @@
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2020-present, [Qiuyan Peng](https://github.com/NicoleQueen)  [Danira Cortez](https://github.com/cortezd334)  [Gabriel Castro](https://github.com/gabe571).
+Copyright (c) 2020-present, [Qiuyan Peng](https://github.com/NicoleQueen), [Danira Cortez](https://github.com/cortezd334),  [Gabriel Castro](https://github.com/gabe571).
