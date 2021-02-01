@@ -34,7 +34,6 @@
   <li>Donate some or all stationery needs to schools or donate money.</li>
 </ul>
 
-
 ## Built with
 
 <ul>
@@ -44,8 +43,19 @@
   <li>SQLite</li>
 </ul>
 
+## Developer
+
+<div>Qiuyan Peng<div><br>
+<li>https://github.com/NicoleQueen</li><br>
+
+<div>Danira Cortez<div><br>
+<li>https://github.com/cortezd334</li><br>
+
+<div>Gabriel Castro<div><br>
+<li>https://github.com/gabe571</li><br>
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2020-present. 
+Copyright (c) 2020-present, [Qiuyan Peng](https://github.com/NicoleQueen)  [Danira Cortez](https://github.com/cortezd334)  [Gabriel Castro](https://github.com/gabe571).
