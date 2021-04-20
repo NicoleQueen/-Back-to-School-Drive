@@ -2,7 +2,7 @@
 
 <div align="center" size="12">
   <strong>
-    Designed and implemented a web app for people to denote stationery to schools who need them.
+    Designed and implemented a web app for people to donate stationery to schools who need them.
   </strong>
 </div>
 
